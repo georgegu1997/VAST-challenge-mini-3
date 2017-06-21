@@ -1,6 +1,28 @@
 import numpy as np
 import numpy.ma as ma
 
+from skimage import io
+
+IMAGE_FILE_LIST = [
+    'image01_2014_03_17',
+    'image02_2014_08_24',
+    'image03_2014_11_28',
+    'image04_2014_12_30',
+    'image05_2015_02_15',
+    'image06_2015_06_24',
+    'image07_2015_09_12',
+    'image08_2015_11_15',
+    'image09_2016_03_06',
+    'image10_2016_06_26',
+    'image11_2016_09_06',
+    'image12_2016_12_19'
+]
+
+SPRING = [0, 4, 8]
+SUMMER = [1, 5, 9]
+FALL = [2, 6, 10]
+WINTER = [3, 7, 11]
+
 class OneImage:
     all_images = []
 
@@ -58,3 +80,13 @@ class OneImage:
         ''' return type is M*N array of boolean.
             True means the pixel is on the black line, should be masked'''
         return line_mask
+
+def read_all_images():
+    for file_name in IMAGE_FILE_LIST:
+        #print "reading:", file_name
+        image_arr = io.imread("./image/"+file_name+".tif")
+        #print image_arr.shape
+        #print image_arr.dtype
+        one_image = OneImage(arr=image_arr, name=file_name)
+        #print image_arr[0,0]
+    print "reading completed"
